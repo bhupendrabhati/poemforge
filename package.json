@@ -1,0 +1,14 @@
+{
+  "name": "poemforge",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "./start.sh",
+    "build": "cd frontend && npm install && npm run build",
+    "start": "cd backend && node src/server.js",
+    "install": "cd frontend && npm install && cd ../backend && npm install"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
