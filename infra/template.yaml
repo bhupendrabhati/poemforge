@@ -1,0 +1,62 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  PoemForge backend - a tiny poetry kiosk. Serverless API powered by Amazon
+  Bedrock (Nova) with a deterministic fallback engine.
+
+Globals:
+  Function:
+    Timeout: 15
+    MemorySize: 256
+    Runtime: nodejs20.x
+    Handler: src/handler.handler
+    Environment:
+      Variables:
+        AWS_BEDROCK_MODEL_ID: !Ref BedrockModelId
+        AWS_BEDROCK_REGION: !Ref BedrockRegion
+    Policies:
+      - Statement:
+          - Sid: InvokeBedrockModels
+            Effect: Allow
+            Action:
+              - bedrock:InvokeModel
+              - bedrock:InvokeModelWithResponseStream
+            Resource: '*'
+
+Parameters:
+  BedrockModelId:
+    Type: String
+    Default: amazon.nova-micro-v1:0
+    Description: Bedrock text model to use for generation.
+  BedrockRegion:
+    Type: String
+    Default: us-east-1
+    Description: AWS region where the Bedrock model is enabled.
+  StageName:
+    Type: String
+    Default: prod
+
+Resources:
+  PoemForgeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../backend/
+      Events:
+        Generate:
+          Type: Api
+          Properties:
+            Path: /api/generate
+            Method: post
+        Health:
+          Type: Api
+          Properties:
+            Path: /health
+            Method: get
+      AutoPublishAlias: live
+      DeploymentPreference:
+        Type: AllAtOnce
+
+Outputs:
+  PoemForgeApiUrl:
+    Description: Base URL for the PoemForge API.
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/${StageName}'

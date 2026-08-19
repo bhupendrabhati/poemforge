@@ -1,0 +1,542 @@
+:root {
+  --bg-0: #0f0c29;
+  --bg-1: #302b63;
+  --bg-2: #24243e;
+  --ink: #f3eef7;
+  --ink-soft: rgba(243, 238, 247, 0.72);
+  --ink-faint: rgba(243, 238, 247, 0.48);
+  --panel: rgba(255, 255, 255, 0.06);
+  --panel-strong: rgba(255, 255, 255, 0.1);
+  --line: rgba(255, 255, 255, 0.12);
+  --accent-1: #f6d365;
+  --accent-2: #fda085;
+  --accent-ink: #241f2e;
+  --ai: #8bd3ff;
+  --error: #ff9e9e;
+  --radius: 16px;
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+  --font:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --serif:
+    Georgia, 'Times New Roman', 'Iowan Old Style', 'Palatino Linotype', serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--ink);
+  background:
+    radial-gradient(1100px 600px at 12% -8%, rgba(120, 92, 220, 0.35), transparent 60%),
+    radial-gradient(900px 500px at 95% 15%, rgba(253, 160, 133, 0.14), transparent 55%),
+    linear-gradient(160deg, var(--bg-0), var(--bg-1) 55%, var(--bg-2));
+  min-height: 100vh;
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.pf-shell {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 20px 72px;
+  overflow: hidden;
+}
+
+.pf-blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.pf-blob--one {
+  width: 320px;
+  height: 320px;
+  top: -80px;
+  right: -80px;
+  background: radial-gradient(circle, rgba(253, 160, 133, 0.5), transparent 70%);
+}
+
+.pf-blob--two {
+  width: 380px;
+  height: 380px;
+  bottom: -120px;
+  left: -140px;
+  background: radial-gradient(circle, rgba(120, 92, 220, 0.55), transparent 70%);
+}
+
+.pf-header,
+.pf-main,
+.pf-footer {
+  position: relative;
+  z-index: 1;
+}
+
+.pf-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.pf-logo {
+  margin: 0;
+  font-size: clamp(2.6rem, 7vw, 4rem);
+  letter-spacing: 0.02em;
+  background: linear-gradient(120deg, #fff 0%, var(--accent-1) 55%, var(--accent-2) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 800;
+}
+
+.pf-logo-accent {
+  background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.pf-tagline {
+  margin: 8px 0 0;
+  color: var(--ink-soft);
+  font-size: 1.02rem;
+}
+
+/* Controls -------------------------------------------------------------- */
+
+.pf-controls {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(8px);
+}
+
+.pf-fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0 0 18px;
+}
+
+.pf-field-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 10px;
+}
+
+.pf-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pf-chip {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--ink-soft);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  transition: transform 0.12s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.pf-chip:hover {
+  background: var(--panel-strong);
+  color: var(--ink);
+}
+
+.pf-chip.is-selected {
+  background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+  color: var(--accent-ink);
+  border-color: transparent;
+  font-weight: 700;
+}
+
+.pf-topic-row {
+  position: relative;
+}
+
+.pf-topic input {
+  width: 100%;
+  padding: 12px 40px 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--ink);
+  font-size: 0.98rem;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.pf-topic.is-focused input {
+  border-color: var(--accent-1);
+  box-shadow: 0 0 0 3px rgba(246, 211, 101, 0.18);
+}
+
+.pf-topic input::placeholder {
+  color: var(--ink-faint);
+}
+
+.pf-topic-clear {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: var(--panel-strong);
+  color: var(--ink-soft);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.pf-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.pf-generate {
+  flex: 1 1 auto;
+  min-width: 180px;
+  border: 0;
+  border-radius: 14px;
+  padding: 14px 22px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--accent-ink);
+  background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+  box-shadow: 0 10px 26px rgba(253, 160, 133, 0.3);
+  transition: transform 0.12s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.pf-generate:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+}
+
+.pf-generate:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.pf-surprise {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink-soft);
+  border-radius: 14px;
+  padding: 14px 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.pf-surprise:hover:not(:disabled) {
+  background: var(--panel-strong);
+  color: var(--ink);
+}
+
+/* Poem card ------------------------------------------------------------- */
+
+.pf-card {
+  margin-top: 24px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 28px 26px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(8px);
+}
+
+.pf-card--empty {
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.pf-empty-title {
+  margin: 0 0 6px;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.pf-empty-note {
+  margin: 0;
+  color: var(--ink-faint);
+  font-size: 0.92rem;
+}
+
+.pf-card--error {
+  border-color: rgba(255, 158, 158, 0.4);
+}
+
+.pf-error-title {
+  margin: 0 0 6px;
+  font-weight: 700;
+  color: var(--error);
+}
+
+.pf-error-message {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.pf-card--loading {
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.pf-loader {
+  display: flex;
+  gap: 8px;
+}
+
+.pf-loader span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+  animation: pf-bounce 1.2s ease-in-out infinite;
+}
+
+.pf-loader span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.pf-loader span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes pf-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+}
+
+.pf-loading-note {
+  margin: 0;
+  color: var(--ink-faint);
+  font-size: 0.92rem;
+}
+
+.pf-poem-title {
+  margin: 0 0 18px;
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.pf-poem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: var(--serif);
+  font-size: 1.12rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.pf-poem-line {
+  opacity: 0;
+  animation: pf-reveal 0.6s ease forwards;
+}
+
+@keyframes pf-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pf-poem-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+
+.pf-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: var(--panel-strong);
+  border: 1px solid var(--line);
+  padding: 5px 10px;
+  border-radius: 999px;
+}
+
+.pf-badge--ai {
+  color: #06121b;
+  background: linear-gradient(120deg, #8bd3ff, #6ab7ff);
+  border-color: transparent;
+}
+
+.pf-poem-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.pf-action {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--ink-soft);
+  border-radius: 10px;
+  padding: 7px 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.pf-action:hover {
+  background: var(--panel-strong);
+  color: var(--ink);
+}
+
+/* History --------------------------------------------------------------- */
+
+.pf-history {
+  margin-top: 24px;
+}
+
+.pf-history-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.pf-history-title {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.pf-history-clear {
+  border: 0;
+  background: none;
+  color: var(--ink-faint);
+  font-size: 0.82rem;
+  text-decoration: underline;
+}
+
+.pf-history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pf-history-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 10px 14px;
+  color: var(--ink-soft);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.pf-history-item:hover {
+  background: var(--panel-strong);
+  border-color: rgba(246, 211, 101, 0.4);
+}
+
+.pf-history-mood {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: var(--accent-1);
+  border: 1px solid rgba(246, 211, 101, 0.35);
+  border-radius: 999px;
+  padding: 3px 8px;
+  flex-shrink: 0;
+}
+
+.pf-history-preview {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Footer ---------------------------------------------------------------- */
+
+.pf-footer {
+  margin-top: 36px;
+  text-align: center;
+  color: var(--ink-faint);
+  font-size: 0.85rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-poem-line {
+    animation: none;
+    opacity: 1;
+  }
+
+  .pf-loader span {
+    animation: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .pf-shell {
+    padding-top: 32px;
+  }
+
+  .pf-card {
+    padding: 22px 18px;
+  }
+}

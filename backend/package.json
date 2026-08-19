@@ -1,0 +1,18 @@
+{
+  "name": "poemforge-backend",
+  "version": "1.0.0",
+  "description": "PoemForge backend - Bedrock Nova generation with a deterministic fallback engine",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.658.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}
