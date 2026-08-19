@@ -10,7 +10,7 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
-    allowedHosts: ['.monkeycode-ai.live'],
+
   },
   test: {
     environment: 'jsdom',
